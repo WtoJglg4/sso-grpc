@@ -16,11 +16,6 @@ const (
 )
 
 func main() {
-	// TODO: initialize configs
-	// TODO: initialize logger
-	// TODO initialize app
-	// TODO run gRPC-server
-
 	cfg := config.MustLoad()
 
 	log := setupLogger(cfg.Env)
@@ -30,8 +25,6 @@ func main() {
 	application := app.New(log, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTTL)
 
 	go application.GRPCServer.MustRun()
-	// TODO: init app
-	// TODO: run app`s gRPC server
 
 	// Graceful shutdown
 	stop := make(chan os.Signal, 1)
