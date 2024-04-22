@@ -19,7 +19,7 @@ require (
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // direct
-	github.com/golang-migrate/migrate v3.5.4+incompatible // direct
+	// github.com/golang-migrate/migrate v3.5.4+incompatible // direct
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	golang.org/x/crypto v0.22.0 // direct

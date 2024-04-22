@@ -7,3 +7,6 @@ tasks:
   build:
     cmds:
       - go build ./cmd/sso/main.go
+  migrations: 
+    cmds:
+      - go run ./cmd/migrator --storage-path=./storage/sso.db --migrations-path=./migrations
