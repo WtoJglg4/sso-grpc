@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"github/sso-grpc/sso/internal/services/auth"
-	"github/sso-grpc/sso/internal/storage"
 
 	ssov1 "github.com/WtoJglg4/protos/gen/go/sso"
 	"google.golang.org/grpc"
@@ -86,7 +85,7 @@ func (s *serverAPI) IsAdmin(ctx context.Context, req *ssov1.IsAdminRequest) (*ss
 
 	isAdmin, err := s.auth.IsAdmin(ctx, req.GetUserId())
 	if err != nil {
-		if errors.Is(err, storage.ErrUserNotFound) {
+		if errors.Is(err, auth.ErrUserNotFound) {
 			return nil, status.Error(codes.NotFound, "user not found")
 		}
 
@@ -100,7 +99,7 @@ func (s *serverAPI) IsAdmin(ctx context.Context, req *ssov1.IsAdminRequest) (*ss
 
 func validateLogin(req *ssov1.LoginRequest) error {
 	if req.GetEmail() == "" {
-		status.Error(codes.InvalidArgument, "email is required")
+		return status.Error(codes.InvalidArgument, "email is required")
 	}
 
 	if req.GetPassword() == "" {
@@ -116,7 +115,7 @@ func validateLogin(req *ssov1.LoginRequest) error {
 
 func validateRegister(req *ssov1.RegisterRequest) error {
 	if req.GetEmail() == "" {
-		status.Error(codes.InvalidArgument, "email is required")
+		return status.Error(codes.InvalidArgument, "email is required")
 	}
 
 	if req.GetPassword() == "" {
@@ -128,7 +127,7 @@ func validateRegister(req *ssov1.RegisterRequest) error {
 
 func validateIsAdmin(req *ssov1.IsAdminRequest) error {
 	if req.GetUserId() == emptyValue {
-		status.Error(codes.InvalidArgument, "user_id is required")
+		return status.Error(codes.InvalidArgument, "user_id is required")
 	}
 
 	return nil
